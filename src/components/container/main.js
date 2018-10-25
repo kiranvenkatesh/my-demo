@@ -14,6 +14,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+
+import AccountPopover from '../presentational/accounts/account-popover'
 // import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 import styles from '../../styles'
@@ -49,8 +51,9 @@ class MiniDrawer extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" noWrap>
-              Automation POC
+              Bot Insights Alerting
             </Typography>
+            <AccountPopover />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -63,7 +66,7 @@ class MiniDrawer extends React.Component {
           }}
           open={open}>
           <div className={classes.toolbar}>
-            <Typography variant="headline">Menu</Typography>
+            <Typography variant="headline" />
             <IconButton onClick={this.handleDrawerClose}>
               {theme.direction === 'rtl' ? (
                 <ChevronRightIcon />
@@ -72,8 +75,6 @@ class MiniDrawer extends React.Component {
               )}
             </IconButton>
           </div>
-          <Divider />
-
           <Divider />
         </Drawer>
         <main className={classes.content}>
