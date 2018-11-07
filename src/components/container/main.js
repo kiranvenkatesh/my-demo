@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import { Provider } from 'react-redux'
+import { HashRouter as Router, Route /* Link */ } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
   Drawer,
@@ -10,14 +12,18 @@ import {
   Divider,
   IconButton
 } from '@material-ui/core'
-
-import MenuIcon from '@material-ui/icons/Menu'
+// import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+// import AvTimer from '@material-ui/icons/AvTimer'
+// import Settings from '@material-ui/icons/Settings'
 
+import BenchMark from './benchmark'
+import BusinessInfo from './business'
 import AccountPopover from '../presentational/accounts/account-popover'
-// import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import NavLinks from '../presentational/drawer'
 
+import store from '../../store'
 import styles from '../../styles'
 
 class MiniDrawer extends React.Component {
@@ -38,50 +44,69 @@ class MiniDrawer extends React.Component {
     const { open } = this.state
 
     return (
-      <div className={classes.root}>
-        <AppBar
-          position="absolute"
-          className={classNames(classes.appBar, open && classes.appBarShift)}>
-          <Toolbar disableGutters={!open}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, open && classes.hide)}>
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-              Bot Insights Alerting
-            </Typography>
-            <AccountPopover />
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: classNames(
-              classes.drawerPaper,
-              !open && classes.drawerPaperClose
-            )
-          }}
-          open={open}>
-          <div className={classes.toolbar}>
-            <Typography variant="headline" />
-            <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'rtl' ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
+      <Provider store={store}>
+        <Router>
+          <div className={classes.root}>
+            <AppBar
+              position="absolute"
+              className={classNames(
+                classes.appBar,
+                open && classes.appBarShift
+              )}>
+              <Toolbar disableGutters={!open}>
+                {/* <IconButton
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={this.handleDrawerOpen}
+                  className={classNames(
+                    classes.menuButton,
+                    open && classes.hide
+                  )}>
+                  <MenuIcon />
+                </IconButton> */}
+                <Typography variant="title" color="inherit" noWrap>
+                  Automation Anywhere
+                </Typography>
+                <AccountPopover />
+                <AccountPopover />
+              </Toolbar>
+            </AppBar>
+            <Drawer
+              variant="permanent"
+              classes={{
+                paper: classNames(
+                  classes.drawerPaper
+                  // !open && classes.drawerPaperClose
+                )
+              }}
+              open={open}>
+              <div className={classes.toolbar}>
+                <Typography variant="headline" />
+                <IconButton onClick={this.handleDrawerClose}>
+                  {theme.direction === 'rtl' ? (
+                    <ChevronRightIcon />
+                  ) : (
+                    <ChevronLeftIcon />
+                  )}
+                </IconButton>
+              </div>
+              <Divider />
+              <NavLinks />
+            </Drawer>
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              <div>
+                <Route path="/" exact component={BenchMark} />
+                <Route path="/business" exact component={BusinessInfo} />
+                <Route
+                  path="/benchmark/:type(bots|runners|creators)"
+                  component={BenchMark}
+                />
+              </div>
+            </main>
           </div>
-          <Divider />
-        </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Typography noWrap>Your content here</Typography>
-        </main>
-      </div>
+        </Router>
+      </Provider>
     )
   }
 }

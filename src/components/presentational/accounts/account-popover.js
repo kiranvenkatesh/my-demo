@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import styled from 'styled-components'
@@ -8,7 +8,7 @@ const StyledPopover = styled.div`
   right: 10px;
 `
 
-class AccountPopover extends Component {
+class AccountPopover extends PureComponent {
   state = {
     anchorEl: null
   }
