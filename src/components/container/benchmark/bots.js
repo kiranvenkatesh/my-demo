@@ -213,26 +213,45 @@ class Bots extends PureComponent {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Area
+                <Bar dataKey="value" barSize={20} fill="#ff7300" name="Bot" />
+                <Line
                   type="monotone"
-                  dataKey="amt"
-                  fill="#8884d8"
-                  stroke="#8884d8"
+                  dataKey="value"
+                  stroke="#ff7300"
+                  name="Bot Curve"
                 />
-                <Bar dataKey="value" barSize={20} fill="#ff7300" />
-                <Line type="monotone" dataKey="pv" stroke="#ff7300" />
                 {benchmark === 'peers' && (
-                  <Bar dataKey="peers" barSize={20} fill="#413ea0" />
+                  <Bar
+                    dataKey="peers"
+                    barSize={20}
+                    fill="#413ea0"
+                    name="Peers"
+                  />
                 )}
                 {benchmark === 'peers' && (
-                  <Line type="monotone" dataKey="peers" stroke="#413ea0" />
+                  <Line
+                    type="monotone"
+                    dataKey="peers"
+                    stroke="#413ea0"
+                    name="Peer Curve"
+                  />
                 )}
 
                 {benchmark === 'rpa' && (
-                  <Bar dataKey="bench" barSize={20} fill="#413ea0" />
+                  <Bar
+                    dataKey="bench"
+                    barSize={20}
+                    fill="#413ea0"
+                    name="BenchMark"
+                  />
                 )}
                 {benchmark === 'rpa' && (
-                  <Line type="monotone" dataKey="bench" stroke="#413ea0" />
+                  <Line
+                    type="monotone"
+                    dataKey="bench"
+                    stroke="#413ea0"
+                    name="BenchMark Curve"
+                  />
                 )}
               </ComposedChart>
             </ResponsiveContainer>
@@ -241,16 +260,24 @@ class Bots extends PureComponent {
           {botType === 'bot_runners' && (
             <ResponsiveContainer width="100%" height={350}>
               <BarChart
-                data={runners}
+                data={sample[filters.rpa]}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis
+                  dataKey="time"
+                  domain={['auto', 'auto']}
+                  name="Time"
+                  scale="time"
+                  tickFormatter={unixTime => moment.unix(unixTime).format('ll')}
+                  type="number"
+                  padding={{ left: 20, right: 20 }}
+                />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="female" stackId="a" fill="#8884d8" />
-                <Bar dataKey="male" stackId="a" fill="#82ca9d" />
-                <Bar dataKey="uv" fill="#ffc658" />
+                <Bar dataKey="value" stackId="a" fill="#8884d8" name="Bot" />
+                <Bar dataKey="peers" stackId="a" fill="#82ca9d" name="Peers" />
+                <Bar dataKey="bench" fill="#ffc658" name="BenchMark" />
               </BarChart>
             </ResponsiveContainer>
           )}
