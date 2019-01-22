@@ -54,18 +54,8 @@ class MiniDrawer extends React.Component {
                 open && classes.appBarShift
               )}>
               <Toolbar disableGutters={!open}>
-                {/* <IconButton
-                  color="inherit"
-                  aria-label="Open drawer"
-                  onClick={this.handleDrawerOpen}
-                  className={classNames(
-                    classes.menuButton,
-                    open && classes.hide
-                  )}>
-                  <MenuIcon />
-                </IconButton> */}
                 <Typography variant="title" color="inherit" noWrap>
-                  Automation Anywhere
+                  DEMO PROJECT
                 </Typography>
                 <AccountPopover />
                 <AccountPopover />
